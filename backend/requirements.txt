@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+redis==6.2.0
+pyjwt
+passlib[bcrypt]
+python-dotenv
+python-jose
+pydantic
+pydantic-core
+debugpy
+ffmpeg
+yt_dlp
+aiohttp
+aiofiles
