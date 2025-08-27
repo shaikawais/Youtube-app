@@ -10,8 +10,8 @@ interactions_router = APIRouter(
 interactions_service = InteractionsService()
 
 @interactions_router.patch('/view_video')
-async def view_video(video_id: str):
-    return await interactions_service.view_video(video_id)
+async def view_video(video_id: str, user_id: str):
+    return await interactions_service.view_video(video_id, user_id)
 
 @interactions_router.patch('/like_video')
 async def like_or_dislike_video(video_id: str, user_id: str):

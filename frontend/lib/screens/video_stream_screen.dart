@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -38,10 +36,9 @@ class _VideoStreamScreenState extends State<VideoStreamScreen> with HelperClass 
   }
 
   Future<void> handleChipTap(BuildContext context, String label) async {
-    log("IN HANDLE TAP METHOD");
     if (videoController.singleVideoData.value == null) return;
 
-    if (label == videoController.singleVideoData.value!.likes.toString()) {
+    if (label == 'Like') {
       await videoController.likeVideo(videoController.singleVideoData.value!.id);
     } else if (label == 'Copy Link') {
       copyLink(context, videoController.singleVideoData.value!.youtubeUrl);
@@ -65,7 +62,7 @@ class _VideoStreamScreenState extends State<VideoStreamScreen> with HelperClass 
             }
 
             final List<IconData> iconNames = [
-              Icons.thumb_up_alt_outlined,
+              videoData.isLiked ? Icons.thumb_up_sharp : Icons.thumb_up_alt_outlined,
               Icons.share,
               Icons.bookmark_outline,
               Icons.flag_outlined,
@@ -75,7 +72,7 @@ class _VideoStreamScreenState extends State<VideoStreamScreen> with HelperClass 
             ];
 
             final List<String> iconTexts = [
-              videoData.likes.toString(),
+              'Like',
               "Share",
               "Save",
               "Report",
@@ -91,7 +88,7 @@ class _VideoStreamScreenState extends State<VideoStreamScreen> with HelperClass 
                   children: [
                     Image.network(
                       "http://10.0.2.2:9000${videoData.thumbnail}",
-                      height: 270.0,
+                      height: 250.0,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
@@ -205,10 +202,33 @@ class _VideoStreamScreenState extends State<VideoStreamScreen> with HelperClass 
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return ActionsChip(
-                          context,
-                          iconNames[index],
-                          iconTexts[index],
+                        return GestureDetector(
+                          onTap: () => handleChipTap(context, iconTexts[index]),
+                          child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            padding: EdgeInsets.symmetric(horizontal: 15),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[900],
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  iconNames[index],
+                                  size: 20,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(width: 6),
+                                Text(
+                                  index == 0 ? videoData.likes.toString() : iconTexts[index],
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         );
                       },
                     ),
@@ -222,34 +242,34 @@ class _VideoStreamScreenState extends State<VideoStreamScreen> with HelperClass 
     );
   }
 
-  Widget ActionsChip(BuildContext context, IconData iconData, String label) {
-    return GestureDetector(
-      onTap: () => handleChipTap(context, label),
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 5),
-        padding: EdgeInsets.symmetric(horizontal: 15),
-        decoration: BoxDecoration(
-          color: Colors.grey[900],
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              iconData,
-              size: 20,
-              color: Colors.white,
-            ),
-            SizedBox(width: 6),
-            Text(
-              label,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget ActionsChip(BuildContext context, IconData iconData, String label) {
+  //   return GestureDetector(
+  //     onTap: () => handleChipTap(context, label),
+  //     child: Container(
+  //       margin: EdgeInsets.symmetric(horizontal: 5),
+  //       padding: EdgeInsets.symmetric(horizontal: 15),
+  //       decoration: BoxDecoration(
+  //         color: Colors.grey[900],
+  //         borderRadius: BorderRadius.circular(20),
+  //       ),
+  //       child: Row(
+  //         children: [
+  //           Icon(
+  //             iconData,
+  //             size: 20,
+  //             color: Colors.white,
+  //           ),
+  //           SizedBox(width: 6),
+  //           Text(
+  //             label,
+  //             style: TextStyle(
+  //               color: Colors.white,
+  //               fontSize: 14,
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 }

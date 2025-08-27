@@ -22,12 +22,6 @@ class VideoController extends GetxController {
     log(userId);
   }
 
-  // Future<void> ensureUserIdLoaded() async {
-  //   if (userId == null) {
-  //     userId = await storageService.getId();
-  //   }
-  // }
-
   Future<List<VideoModel>> getAllVideosData() async {
     try {
       isLoading.value = true;

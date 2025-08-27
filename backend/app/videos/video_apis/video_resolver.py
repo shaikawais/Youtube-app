@@ -14,8 +14,8 @@ async def get_all_videos():
     return await video_service.get_all_videos()
 
 @video_router.get("/video")
-async def get_video(video_id: str):
-    return await video_service.get_video(video_id)
+async def get_video(video_id: str, user_id: str):
+    return await video_service.get_video(video_id, user_id)
 
 @video_router.get("/stream/{video_id}")
 async def stream_video(video_id: str):

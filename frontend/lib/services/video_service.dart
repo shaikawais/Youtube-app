@@ -36,8 +36,6 @@ class VideoService {
       });
       final response = await client.get(uri);
 
-      log(response.body.toString());
-
       if (response.statusCode == 200) {
         final Map<String, dynamic> jsonMap = jsonDecode(response.body);
         return SingleVideoModel.fromJson(jsonMap);
@@ -58,8 +56,6 @@ class VideoService {
       });
       final response = await client.patch(uri);
 
-      log(response.body.toString());
-
       if (response.statusCode == 200) {
         final Map<String, dynamic> jsonMap = jsonDecode(response.body);
         final Map<String, dynamic> videoData = jsonMap["video"];
@@ -74,14 +70,13 @@ class VideoService {
 
   Future<SingleVideoModel> likeVideo(String videoId, String userId) async {
     try {
+      log(videoId + ' ' + userId);
       final uri =
           Uri.parse("http://10.0.2.2:9000/interactions/like_video").replace(queryParameters: {
         "video_id": videoId,
-        "user_id ": userId,
+        "user_id": userId,
       });
       final response = await client.patch(uri);
-
-      log(response.body.toString());
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> jsonMap = jsonDecode(response.body);
