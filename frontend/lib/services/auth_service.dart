@@ -5,13 +5,15 @@ import 'package:frontend/services/storage_service.dart';
 import 'package:frontend/utils/controller_bindings.dart';
 import 'package:http/http.dart' as http;
 
+import '../utils/app_config.dart';
+
 class AuthService {
   final client = http.Client();
   final StorageService storageService = StorageService();
 
   Future<String> signIn(String username, String password) async {
     try {
-      final uri = Uri.parse("http://10.0.2.2:9000/auth/login").replace(queryParameters: {
+      final uri = Uri.parse("${AppConfig.activeHost}/auth/login").replace(queryParameters: {
         "username": username,
         "password": password,
       });
@@ -41,7 +43,7 @@ class AuthService {
 
   Future<String> getUserData(String username, String token) async {
     try {
-      final uri = Uri.parse("http://10.0.2.2:9000/auth/get_user").replace(queryParameters: {
+      final uri = Uri.parse("${AppConfig.activeHost}/auth/get_user").replace(queryParameters: {
         "username": username,
       });
 

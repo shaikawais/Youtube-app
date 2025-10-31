@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/models/video_model.dart';
 import 'package:frontend/screens/video_stream_screen.dart';
+import 'package:frontend/utils/app_config.dart';
 import 'package:get/get.dart';
 
 class VideoCard extends StatelessWidget {
@@ -22,7 +23,7 @@ class VideoCard extends StatelessWidget {
           child: Stack(
             children: [
               Image.network(
-                "http://10.0.2.2:9000${video.thumbnail}",
+                AppConfig.activeHost + video.thumbnail,
                 height: 240.0,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -55,7 +56,7 @@ class VideoCard extends StatelessWidget {
             leading: CircleAvatar(
               radius: 23,
               backgroundImage: NetworkImage(
-                "http://10.0.2.2:9000${video.thumbnail}",
+                AppConfig.activeHost + video.thumbnail,
               ),
             ),
             title: Text(

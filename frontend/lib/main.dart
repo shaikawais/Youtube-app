@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     OverlaySupport.global(
       child: MyApp(),
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
     return DismissKeyboard(
       key: UniqueKey(),
       child: GetMaterialApp(
-        title: 'Flutter Demo',
+        title: 'You Tube',
         theme: ThemeData(
           brightness: Brightness.light,
           bottomNavigationBarTheme: BottomNavigationBarThemeData(selectedItemColor: Colors.black),
